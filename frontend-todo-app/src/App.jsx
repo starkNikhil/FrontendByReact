@@ -2,11 +2,11 @@
 import { useState } from 'react'
 import './App.css'
 
-let todos = {
-  title: "Go to gym",
-  description: "Go to gym at 11",
-  id: 1
-}
+// let todos = {
+//   title: "Go to gym",
+//   description: "Go to gym at 11",
+//   id: 1
+// }
 // {
 //   title: "Go eat food",
 //   description: "Eat food at 7"
@@ -16,37 +16,45 @@ let todos = {
 
 function App() {
 
-  const [todo, setTodo] = useState({
+  const [todos, setTodos] = useState([{
     title: "Go to gym",
-    description: "Go to gym at 11",
+    description: "Hit gym from 5-7",
     id: 1
-  });
+  },
+  {
+    title: "Go to Class",
+    description: "Go to class from 7-9",
+    id: 1
+  }]);
 
-  setInterval(() => {
-    setTodo({
-      title: "Go eat something",
-      description:"eat food",
-      id: 2
-    })
-  }, 2000);
+
 
 
   return (
     <>
-      <h1>Hi There</h1>
-      {todo.title}
-      {todo.description}
-      {todo.id}
-      <PersonName firstName={todo.title} lastName={"Jain"}></PersonName>
+      <div>
+
+        {todos.map((todo) => {
+          return <Todo title={todo.title} description={todo.description}></Todo>
+        })}
+      </div>
     </>
   )
 }
 
 
-function PersonName(props){
+function Todo(props) {
   return <div>
-    {props.firstName} {props.lastName} 
+    <div>
+
+      {props.title}
+    </div>
+    <div>
+
+      {props.description}
+    </div>
   </div>
 }
+
 
 export default App
