@@ -1,33 +1,41 @@
 
 import { useState } from 'react'
 import './App.css'
+import { useEffect } from 'react';
 
-// let todos = {
-//   title: "Go to gym",
-//   description: "Go to gym at 11",
-//   id: 1
-// }
-// {
-//   title: "Go eat food",
-//   description: "Eat food at 7"
-// }
+// creatin a custom hook
+
+function useTodos() {
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/todos").then((response) => {
+      response.json().then((data) => {
+        console.log(data);
+        setTodos(data)
+      })
+    })
+  }, [])
+  //  Till here only one till fetch request will go outside
+  // using set interval will re render the fetch request in every one 1 sec which will update it
+  
+  setInterval(() => {
+    fetch("http://localhost:3000/todos").then((response) => {
+      response.json().then((data) => {
+        console.log(data);
+        setTodos(data)
+      })
+    })
+  }, 1000);
+
+  return todos
+}
 
 
 
 function App() {
 
-  const [todos, setTodos] = useState([{
-    title: "Go to gym",
-    description: "Hit gym from 5-7",
-    id: 1
-  },
-  {
-    title: "Go to Class",
-    description: "Go to class from 7-9",
-    id: 1
-  }]);
-
-
+ const todos = useTodos()
 
 
   return (
